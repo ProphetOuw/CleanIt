@@ -1,0 +1,1 @@
+{"name":"CleanIt testing","className":"DataModel","filePaths":["test.project.json"],"children":[{"name":"ReplicatedStorage","className":"ReplicatedStorage","children":[{"name":"CleanIt","className":"ModuleScript","filePaths":["CleanIt/init.luau"]}]}]}
