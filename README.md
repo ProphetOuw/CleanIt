@@ -1,5 +1,5 @@
 # CleanIt
-A LUAU memory cleaner, it's a simple package that helps you clean memory. Due to its simplicity, and small code you can use it at large quantities. CleanIt supports cleaning for:
+A LUAU memory cleaner, it's a simple package that helps you clean memory.
 - Functions
 - Instances
 - Connections
