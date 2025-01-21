@@ -11,6 +11,9 @@ A LUAU memory cleaner, it's a simple package that helps you clean memory. As of 
 ## Installation
 ### Roblox
 ### Wally
+```
+cleanit = "prophetouw/cleanit@^1"
+```
 ### Github
 To download this from the github, see the releases section and download the latest rbxm file.
 ## Methods

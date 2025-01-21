@@ -1,9 +1,10 @@
 [package]
 name = "prophetouw/cleanit"
-version = "1.0.0"
+version = "1.0.3"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "shared"
 license = "MIT"
 description = "A memory cleaning helper."
 authors = ["ProphetOuw <ouwproduction@gmail.com>"]
+exclude = ["sourcemap.json","test.project.json","pack.project.json"]
 [dependencies]
