@@ -36,20 +36,18 @@ return {
             end
         end;
         function Cleaner:Destroy()
-            if self.Destroyed == true then warn("Cleaner is already destroyed"); return end;
-            self.Destroyed = true;
-            for i,v in pairs(Cleaner.Holder) do
+            for i,v in (Cleaner.Holder) do
                 local vType = typeof(v)
                 if vType == "table" and v["Destroy"] ~= nil then
                     vType = "Instance";
                 end
                 CleanerFunctions[vType](v)
             end
-            for i,v in pairs(Cleaner.Holder) do
-                Cleaner.Holder[i] = nil;
+            for k in (Cleaner.Holder) do
+                Cleaner.Holder[k] = nil;
             end
-            for i,v in pairs(Cleaner) do
-                Cleaner[i] = nil;
+            for k in (Cleaner) do
+                Cleaner[k] = nil;
             end
         end
         return Cleaner :: CleanerType
