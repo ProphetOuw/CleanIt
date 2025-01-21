@@ -1,5 +1,5 @@
 export type CleanerType = {
-    Add: (Entity: any, CleanerFunction: string) -> ();
+    Add: (Entity: any) -> ();
     Destroy: (self: CleanerType) -> ();
 }
 local CleanerFunctions = {
@@ -36,6 +36,8 @@ return {
             end
         end;
         function Cleaner:Destroy()
+            if self.Destroyed == true then warn("Cleaner is already destroyed"); return end;
+            self.Destroyed = true;
             for i,v in pairs(Cleaner.Holder) do
                 local vType = typeof(v)
                 if vType == "table" and v["Destroy"] ~= nil then
