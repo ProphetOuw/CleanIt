@@ -32,7 +32,7 @@ return {
             if CleanerFunctions[EntityType] or Entity["Destroy"] ~= nil then
                 table.insert(Cleaner.Holder,Entity)
             else
-                warn(`{Entity.Name}-{Entity.Class} has no cleaning support yet so it wasn't added to the cleaning queu.`)
+                warn(`{Entity.Name}-{Entity.Class} has no cleaning support yet so it wasn't added to the cleaning list.`)
             end
         end;
         function Cleaner:Destroy()
