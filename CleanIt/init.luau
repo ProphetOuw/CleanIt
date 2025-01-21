@@ -9,7 +9,17 @@ local CleanerFunctions = {
     ["Instance"] = function(object)
         object:Destroy()
     end;
-    "Default"
+    ["RBXScriptConnection"] = function(object)
+        object:Disconnect()
+    end;
+    ["thread"] = function(object)
+        task.cancel(object)
+    end;
+    ["table"] = function(object)
+        for k in pairs(object) do
+            object[k] = nil
+        end
+    end;
 };
 return {
     New = function()
@@ -26,7 +36,19 @@ return {
             end
         end;
         function Cleaner:Destroy()
-            
+            for i,v in pairs(Cleaner.Holder) do
+                local vType = typeof(v)
+                if vType == "table" and v["Destroy"] ~= nil then
+                    vType = "Instance";
+                end
+                CleanerFunctions[vType](v)
+            end
+            for i,v in pairs(Cleaner.Holder) do
+                Cleaner.Holder[i] = nil;
+            end
+            for i,v in pairs(Cleaner) do
+                Cleaner[i] = nil;
+            end
         end
         return Cleaner :: CleanerType
     end
