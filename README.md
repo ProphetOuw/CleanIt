@@ -10,12 +10,13 @@ A LUAU memory cleaner, it's a simple package that helps you clean memory. As of 
 > If you are sending in functions or objects with custom destroy functions, make sure there is error handling in those functions. **All** yields in any destroy functions will effect all of the other elements in the CleanIt cleaning list.
 ## Installation
 ### Roblox
+https://create.roblox.com/store/asset/87184763787563/CleanIt
 ### Wally
 ```
-cleanit = "prophetouw/cleanit@^1"
+cleanit = "prophetouw/cleanit@1.0.7"
 ```
 ### Github
-To download this from the github, see the releases section and download the latest rbxm file.
+To download this from the github, see the [releases](https://github.com/ProphetOuw/CleanIt/releases/tag/first) section and download the latest rbxm file.
 ## Methods
 ### Add
 Adds the Entity to the cleaning list.
