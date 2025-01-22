@@ -43,12 +43,12 @@ local Object = {
     end
 }
 function Object:Destroy()
-    CleanIt.Remove(self) -- remove reference so garbage collector can clean the memory
+    Cleaner.Remove(self) -- remove reference so garbage collector can clean the memory
     for k in pairs(self) do
         self[k] = nil;
     end
 end
-CleanIt.Add(Object)
+Cleaner.Add(Object)
 return Object
 ```
 ### Destroy
