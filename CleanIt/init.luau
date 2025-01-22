@@ -1,6 +1,4 @@
-local tf = table.find
-local tr =  table.remove
-
+--!strict
 export type CleanerType = {
     Add: (Entity: any) -> ();
     Destroy: (self: CleanerType) -> ();
@@ -41,8 +39,8 @@ return {
         end;
         Cleaner.Remove = function(Entity)
             if Entity == nil then return end;
-           local find = tf(Cleaner.Holder,Entity)
-           tr(Cleaner.Holder,find)
+           local find = table.find(Cleaner.Holder,Entity)
+           table.remove(Cleaner.Holder,find)
            return true;
         end
         function Cleaner:Destroy()
