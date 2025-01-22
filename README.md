@@ -13,7 +13,7 @@ A LUAU memory cleaner, it's a simple package that helps you clean memory. As of 
 https://create.roblox.com/store/asset/87184763787563/CleanIt
 ### Wally
 ```
-CleanIt = "prophetouw/cleanit@1.2.1"
+CleanIt = "prophetouw/cleanit@1.2.2"
 ```
 ### Github
 To download this from the github, see the [releases](https://github.com/ProphetOuw/CleanIt/releases/tag/first) section and download the latest rbxm file.
@@ -32,6 +32,24 @@ Cleaner.Add(function()
     Object.Name = "--";
     Object:Destroy()
 end)
+```
+### Remove
+Removes the entity's reference from the cleaner's cleaning list. This function is useful for garbage collection.
+```lua
+local Object = {
+    Name = "Hi"
+    Run = function()
+
+    end
+}
+function Object:Destroy()
+    CleanIt.Remove(self) -- remove reference so garbage collector can clean the memory
+    for k in pairs(self) do
+        self[k] = nil;
+    end
+end
+CleanIt.Add(Object)
+return Object
 ```
 ### Destroy
 Cleans everything in the CleanIt cleaning list and itself.
