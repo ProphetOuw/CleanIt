@@ -29,8 +29,11 @@ If you want custom cleaning logic you can use functions:
 ```lua
 local Object = workspace.Object
 Cleaner.Add(function()
-    Object.Name = "--";
-    Object:Destroy()
+    task.spawn(function()
+        Object.Name = "--";
+        task.wait(1)
+        Object:Destroy()
+    end)
 end)
 ```
 ### Remove
