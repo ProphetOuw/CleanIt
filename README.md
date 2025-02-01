@@ -46,17 +46,17 @@ local Object = {
     end
 }
 function Object:Destroy()
-    Cleaner.Remove(self) -- remove reference so garbage collector can clean the memory
+    Cleaner:Remove(self) -- remove reference so garbage collector can clean the memory
     for k in pairs(self) do
         self[k] = nil;
     end
 end
-Cleaner.Add(Object)
+Cleaner:Add(Object)
 return Object
 ```
 ### Destroy
 Cleans everything in the CleanIt cleaning list and itself.
 ```lua
-Cleaner.Add(object1)
+Cleaner:Add(object1)
 Cleaner:Destroy()
 ```
