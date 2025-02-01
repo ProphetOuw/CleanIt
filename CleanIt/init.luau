@@ -1,72 +1,51 @@
 --!strict
+local tins,tr,tc = table.insert,table.remove,table.clear
+local tcancel = task.cancel
+
 export type CleanerType = {
     Holder: {};
     Add: (Entity: any) -> ();
     Destroy: (self: CleanerType) -> ();
     Remove: (Entity: any) -> ();
 }
-local CleanerFunctions = {
-    ["function"]= function(object)
-        object();
-    end;
-    ["Instance"] = function(object)
-        object:Destroy()
-    end;
-    ["RBXScriptConnection"] = function(object)
-        object:Disconnect()
-    end;
-    ["thread"] = function(object)
-        task.cancel(object)
-    end;
-    ["table"] = function(object)
-        for k in pairs(object) do
-            object[k] = nil
-        end
-    end;
-};
+
 return {
     New = function()
         local Cleaner = {
             Holder = {};
-        };
+        } :: CleanerType;
         Cleaner.Add = function(Entity: any)
             if Entity == nil then return end;
-            local EntityType = typeof(Entity)
-            if CleanerFunctions[EntityType] or (EntityType == "table" and Entity["Destroy"] ~= nil) then
-                table.insert(Cleaner.Holder,Entity)
-            else
-                warn(`{Entity.Name}-{Entity.Class} has no cleaning support yet so it wasn't added to the cleaning list.`)
-            end
+            tins(Cleaner.Holder,Entity)
         end;
         Cleaner.Remove = function(Entity)
             if Entity == nil then return end;
            local find = table.find(Cleaner.Holder,Entity)
-           table.remove(Cleaner.Holder,find)
+           tr(Cleaner.Holder,find)
            return true;
         end
         function Cleaner:Destroy()
-            local ToClean: any = {};
-            for i,v in pairs(self.Holder) do
-                ToClean[i] = v;
-            end
-            for i,v in pairs (ToClean) do
-                local vType = typeof(v)
-                if vType == "table" and v["Destroy"] ~= nil then
-                    vType = "Instance";
+            for i,v: any in pairs (self.Holder) do
+                self.Holder[i] = false;
+                local type = typeof(v)
+                if type == "table" and v["Destroy"] ~= nil then
+                    type = "Instance";
                 end
-                CleanerFunctions[vType](v)
+                if (type == "table" and v["Destroy"] ~= nil) or type == "Instance" then
+                    v:Destroy();
+                elseif type == "function" then
+                    v()
+                elseif type == "RBXScriptConnection" then
+                    v:Disconnect();
+                elseif type == "thread" then
+                    tcancel(v);
+                elseif type == "table" then
+                    tc(v)
+                end
             end
-            for k in pairs(ToClean) do
-                ToClean[k] = nil;
-            end
-            ToClean = nil;
-            for k in pairs (self.Holder) do
-                self.Holder[k] = nil;
-            end
-            for k in pairs (self) do
-                self[k] = nil;
-            end
+            tc(self.Holder)
+            tc(self)
         end
-        return Cleaner :: CleanerType
+        return Cleaner
     end
 }
