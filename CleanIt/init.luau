@@ -45,6 +45,7 @@ function mt:Destroy()
         end
     end
     tc(self)
+    setmetatable(self,nil);
 end
 return {
     New = function()
