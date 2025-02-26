@@ -1,6 +1,13 @@
 {
   "name": "CleanIt",
   "tree": {
-    "$path": "CleanIt"
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "CleanIt" : {
+        "$path": "CleanIt"
+      }
+    }
+    
   }
 }

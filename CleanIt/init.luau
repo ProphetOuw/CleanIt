@@ -26,8 +26,11 @@ function mt:Remove(Entity)
    
 end
 function mt:Destroy()
-    for i,v: any in pairs (self) do
-        self[i] = false;
+    for i = #self,1,-1 do
+        local v: any = self[i];
+        if v == nil then continue end;
+        self[i] = nil;
+
         local type = typeof(v)
         if type == "table" and v["Destroy"] ~= nil then
             type = "Instance";
@@ -48,10 +51,10 @@ function mt:Destroy()
     setmetatable(self,nil);
 end
 return {
-    New = function()
+    New = function() : CleanerType
         local Cleaner = {
         } :: CleanerType;
         setmetatable(Cleaner,mt);
-        return Cleaner
+        return Cleaner :: any
     end
 }
