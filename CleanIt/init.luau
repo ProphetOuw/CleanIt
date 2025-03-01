@@ -32,9 +32,6 @@ function mt:Destroy()
         self[i] = nil;
 
         local type = typeof(v)
-        if type == "table" and v["Destroy"] ~= nil then
-            type = "Instance";
-        end
         if (type == "table" and v["Destroy"] ~= nil) or type == "Instance" then
             v:Destroy();
         elseif type == "function" then
