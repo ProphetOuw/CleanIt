@@ -12,6 +12,11 @@ export type CleanerType = {
 
 local mt = {}
 mt.__index = mt;
+function mt:Connect(Connection: RBXScriptSignal, func: () -> ())
+    if Connection ~= nil and func ~= nil then
+        tins(self,Connection:Connect(func))
+    end
+end
 function mt:Add(Entity: any)
     if Entity == nil then return end;
     tins(self,Entity)
@@ -28,9 +33,9 @@ end
 function mt:Destroy()
     for i = #self,1,-1 do
         local v: any = self[i];
-        if v == nil then continue end;
         self[i] = nil;
-
+        if v == nil then continue end;
+        
         local type = typeof(v)
         if (type == "table" and v["Destroy"] ~= nil) or type == "Instance" then
             v:Destroy();
