@@ -22,19 +22,22 @@ To download this from the github, see the [releases](https://github.com/ProphetO
 Adds the Entity to the cleaning list.
 ```lua
 local Cleaner = CleanIt.New()
-Cleaner.Add(object1)
+Cleaner:Add(object1)
 Cleaner:Destroy()
 ```
 If you want custom cleaning logic you can use functions:
 ```lua
 local Object = workspace.Object
-Cleaner.Add(function()
+Cleaner:Add(function()
     task.spawn(function()
         Object.Name = "--";
         task.wait(1)
         Object:Destroy()
     end)
 end)
+task.wait(.5)
+Cleaner:Destroy()
+Print(Object.Parent.Name)
 ```
 ### Connect
 For signals
