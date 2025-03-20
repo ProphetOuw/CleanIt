@@ -36,7 +36,7 @@ Cleaner:Add(function()
     end)
 end)
 task.wait(.5)
-Cleaner:Destroy()
+Cleaner:Destroy() -- deletes the thread before it gets to the point of deleting the object
 Print(Object.Parent.Name)
 ```
 ### Connect
