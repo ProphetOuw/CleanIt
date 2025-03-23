@@ -6,7 +6,8 @@ export type CleanerType = {
     Holder: {};
     Add: (Entity: any) -> ();
     Destroy: (self: CleanerType) -> ();
-    Remove: (Entity: any) -> ();
+    Remove: (self: CleanerType, Entity: any) -> ();
+    Clean: (self: CleanerType) -> ();
 }
 
 
@@ -20,6 +21,7 @@ end
 function mt:Add(Entity: any)
     if Entity == nil then return end;
     tins(self,Entity)
+    return Entity;
 end;
 function mt:Remove(Entity)
     if Entity == nil then return end;
@@ -30,12 +32,11 @@ function mt:Remove(Entity)
    end
    
 end
-function mt:Destroy()
-    for i = #self,1,-1 do
+function mt:Clean()
+    local i = #self
+    while i >0 do
         local v: any = self[i];
-        self[i] = nil;
         if v == nil then continue end;
-        
         local type = typeof(v)
         if (type == "table" and v["Destroy"] ~= nil) or type == "Instance" then
             v:Destroy();
@@ -48,8 +49,12 @@ function mt:Destroy()
         elseif type == "table" then
             tc(v)
         end
+        self[i] = nil;
+        i = #self;
     end
-    tc(self)
+end
+function mt:Destroy()
+    self:Clean();
     setmetatable(self,nil);
 end
 return {
