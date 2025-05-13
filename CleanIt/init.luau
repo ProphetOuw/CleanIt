@@ -32,23 +32,28 @@ function mt:Remove(Entity)
    end
    
 end
+function CleanEntity(Entity: any,type: string)
+    if Entity == nil then return end;
+    if (type == "table" and Entity["Destroy"] ~= nil) or type == "Instance" then
+        Entity:Destroy();
+    elseif type == "function" then
+        Entity()
+    elseif type == "RBXScriptConnection" then
+        Entity:Disconnect();
+    elseif type == "thread" then
+        tcancel(Entity);
+    elseif type == "table" then
+        tc(Entity)
+    end
+end
+
 function mt:Clean()
     local i = #self
     while i >0 do
         local v: any = self[i];
         if v == nil then continue end;
         local type = typeof(v)
-        if (type == "table" and v["Destroy"] ~= nil) or type == "Instance" then
-            v:Destroy();
-        elseif type == "function" then
-            v()
-        elseif type == "RBXScriptConnection" then
-            v:Disconnect();
-        elseif type == "thread" then
-            tcancel(v);
-        elseif type == "table" then
-            tc(v)
-        end
+        CleanEntity(v,type);
         self[i] = nil;
         i = #self;
     end
@@ -58,6 +63,10 @@ function mt:Destroy()
     setmetatable(self,nil);
 end
 return {
+    Delay = function(Entity: any, time: number)
+        if Entity == nil then return end;
+        task.delay(time,CleanEntity,Entity,typeof(Entity))
+    end,
     New = function() : CleanerType
         local Cleaner = {
         } :: CleanerType;

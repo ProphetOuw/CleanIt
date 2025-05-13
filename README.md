@@ -13,11 +13,15 @@ A LUAU memory cleaner, it's a simple package that helps you clean memory. As of 
 https://create.roblox.com/store/asset/87184763787563/CleanIt
 ### Wally
 ```
-CleanIt = "prophetouw/cleanit@1.3.12"
+CleanIt = "prophetouw/cleanit@1.3.13"
 ```
 ### Github
 To download this from the github, see the [releases](https://github.com/ProphetOuw/CleanIt/releases/tag/first) section and download the latest rbxm file.
 ## Methods
+### Timed cleaning
+```lua
+CleanIt.Delay(Entity,.2)
+```
 ### Add
 Adds the Entity to the cleaning list.
 ```lua
@@ -38,6 +42,11 @@ end)
 task.wait(.5)
 Cleaner:Destroy() -- deletes the thread before it gets to the point of deleting the object
 Print(Object.Parent.Name)
+```
+### Clean
+If you want to empty the cleaner without deleting it
+```lua
+Cleaner:Clean()
 ```
 ### Connect
 For signals
